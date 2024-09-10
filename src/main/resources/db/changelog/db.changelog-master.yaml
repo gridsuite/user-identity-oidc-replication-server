@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: changesets/changelog_20240908T133428Z.xml
+      relativeToChangelogFile: true
