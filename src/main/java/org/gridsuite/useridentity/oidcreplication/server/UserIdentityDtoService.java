@@ -25,12 +25,48 @@ public class UserIdentityDtoService {
         this.objectMapper = objectMapper;
     }
 
+    private String computeFirstName(String givenName, String splitFirstName, String nickname, String preferredUsername) {
+        if (givenName != null) {
+            return givenName;
+        }
+        if (splitFirstName != null) {
+            return splitFirstName;
+        }
+        if (nickname != null) {
+            return nickname;
+        }
+        if (preferredUsername != null) {
+            return preferredUsername;
+        }
+        return null;
+    }
+
+    private String computeLastName(String familyName, String splitLastName, String middleName, String sub) {
+        if (familyName != null) {
+            return familyName;
+        }
+        if (splitLastName != null) {
+            return splitLastName;
+        }
+        if (middleName != null) {
+            return middleName;
+        }
+        // Last resort use the sub, just to display something
+        // not too terrible, not sure if it's a good idea we
+        // don't use the "name" field here (it might be
+        // present, just not splitted by whitespace so we
+        // didn't guess a firstname/lastname from it) because
+        // we will use it for the firstname as a last resort
+        // so avoid duplicating
+        return sub;
+    }
+
     public UserIdentity toDto(UserIdentityEntity userIdentityEntity) {
         JsonNode parsed;
         try {
             parsed = objectMapper.readTree(userIdentityEntity.getIdtoken());
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e.getClass().getSimpleName() + ": Error parsing idtoken", e);
+            throw new UserIdentityException(e.getClass().getSimpleName() + ": Error parsing idtoken", e);
         }
 
         // Openid Connect idtoken spec:
@@ -84,21 +120,9 @@ public class UserIdentityDtoService {
             }
         }
 
-        String firstName = givenName != null ? givenName :
-                           splitFirstName != null ? splitFirstName :
-                           nickname != null ? nickname :
-                           preferredUsername != null ? preferredUsername : null;
-        String lastName = familyName != null ? familyName :
-                          splitLastName != null ? splitLastName :
-                          middleName != null ? middleName :
-                          // Last resort use the sub, just to display something
-                          // not too terrible, not sure if it's a good idea we
-                          // don't use the "name" field here (it might be
-                          // present, just not splitted by whitespace so we
-                          // didn't guess a firstname/lastname from it) because
-                          // we will use it for the firstname as a last resort
-                          // so avoid duplicating
-                          sub;
+        String firstName = computeFirstName(givenName, splitFirstName, nickname, preferredUsername);
+
+        String lastName = computeLastName(familyName, splitLastName, middleName, sub);
 
         if (firstName == null) {
             if (name != null && !name.equals(sub)) {
