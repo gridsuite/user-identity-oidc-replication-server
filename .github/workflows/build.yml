@@ -14,7 +14,7 @@ jobs:
       sonarProjectKey: org.gridsuite:user-identity-oidc-replication-server
       dockerImage: docker.io/gridsuite/user-identity-oidc-replication-server
       dockerUsername: gridsuiteci
-      eventType: user-identity-oidc-replication-server_updated
+      eventType: user_identity_oidc_replication_server_updated
     secrets:
       sonar-token: ${{ secrets.SONAR_TOKEN }}
       docker-token: ${{ secrets.DOCKERHUB_TOKEN }}
