@@ -1,4 +1,4 @@
-# user-identity-oidc-replication-server
+# User identity OIDC replication server
 
 [![Actions Status](https://github.com/gridsuite/user-identity-oidc-replication-server/workflows/CI/badge.svg)](https://github.com/gridsuite/user-identity-oidc-replication-server/actions)
 [![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=org.gridsuite%3Auser-identity-oidc-replication-server&metric=coverage)](https://sonarcloud.io/component_measures?id=org.gridsuite%3Auser-identity-oidc-replication-server&metric=coverage)
