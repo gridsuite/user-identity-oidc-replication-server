@@ -25,38 +25,64 @@ public class UserIdentityDtoService {
         this.objectMapper = objectMapper;
     }
 
-    private String computeFirstName(String givenName, String splitFirstName, String nickname, String preferredUsername) {
+    private String computeFirstName(String sub, String name, String givenName, String nickname, String preferredUsername) {
+        // Try to do our best with heterogeneous data from differing identity providers
+        // Feel free to improve this upon discovering new data formats..
+
+        // return given nam if exists
         if (givenName != null) {
             return givenName;
         }
-        if (splitFirstName != null) {
-            return splitFirstName;
+        // or return first Name
+        if (name != null) {
+            String[] names = name.split(" ");
+            if (names.length >= 2) {
+                return names[0];
+            }
         }
+        // or nickname
         if (nickname != null) {
             return nickname;
         }
+        // or preferred user name
         if (preferredUsername != null) {
             return preferredUsername;
         }
-        return null;
+
+        if (name != null && !name.equals(sub)) {
+            // a name without any whitespace almost last resort
+            // also not a copy of the sub because we use the sub in the lastname so avoid
+            // "sub sub" to look nicer
+            return name;
+        }
+        // Last resort, just to display something not too terrible, not sure if
+        // it's a good idea. Looks like "S Sub".
+        return sub.substring(0, 1);
     }
 
-    private String computeLastName(String familyName, String splitLastName, String middleName, String sub) {
+    private String computeLastName(String sub, String name, String familyName, String middleName) {
+        // Try to do our best with heterogeneous data from differing identity providers
+        // Feel free to improve this upon discovering new data formats..
+
+        // return family name if exists
         if (familyName != null) {
             return familyName;
         }
-        if (splitLastName != null) {
-            return splitLastName;
+        // or return last Name
+        if (name != null) {
+            String[] names = name.split(" ");
+            if (names.length >= 2) {
+                return names[names.length - 1];
+            }
         }
+        // or middle name
         if (middleName != null) {
             return middleName;
         }
         // Last resort use the sub, just to display something
         // not too terrible, not sure if it's a good idea we
-        // don't use the "name" field here (it might be
-        // present, just not splitted by whitespace so we
-        // didn't guess a firstname/lastname from it) because
-        // we will use it for the firstname as a last resort
+        // don't use the "name" field here more precisly
+        // because we will use it for the firstname as a last resort
         // so avoid duplicating
         return sub;
     }
@@ -108,35 +134,9 @@ public class UserIdentityDtoService {
             sub = userIdentityEntity.getSub();
         }
 
-        // Try to do our best with heterogeneous data from differing identity providers
-        // Feel free to improve this upon discovering new data formats..
-        String splitFirstName = null;
-        String splitLastName = null;
-        if (name != null) {
-            String[] names = name.split(" ");
-            if (names.length >= 2) {
-                splitFirstName = names[0];
-                splitLastName = names[names.length - 1];
-            }
-        }
-
-        String firstName = computeFirstName(givenName, splitFirstName, nickname, preferredUsername);
-
-        String lastName = computeLastName(familyName, splitLastName, middleName, sub);
-
-        if (firstName == null) {
-            if (name != null && !name.equals(sub)) {
-                // a name without any whitespace almost last resort
-                // also not a copy of the sub because we use the sub in the lastname so avoid
-                // "sub sub" to look nicer
-                firstName = name;
-            } else {
-                // Last resort, just to display something not too terrible, not sure if
-                // it's a good idea. Looks like "S Sub".
-                firstName = sub.substring(0, 1);
-            }
-        }
-
-        return new UserIdentity(userIdentityEntity.getSub(), firstName, lastName);
+        return new UserIdentity(userIdentityEntity.getSub(),
+                                computeFirstName(sub, name, givenName, nickname, preferredUsername),
+                                computeLastName(sub, name, familyName, middleName)
+        );
     }
 }
