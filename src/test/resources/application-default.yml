@@ -1,0 +1,23 @@
+spring:
+  jpa:
+    database: H2
+    properties:
+      dialect: org.hibernate.dialect.H2Dialect
+
+logging:
+  level:
+    org.springframework.web.method.HandlerMethod: TRACE
+    org.springframework.test.web.servlet.TestDispatcherServlet: TRACE
+    liquibase: ERROR #  too verbose to dump liquibase operations at the begining of each test
+    com.zaxxer.hikari.HikariConfig: INFO # too verbose to dump the full config at the begining of each test
+    org.springframework.orm.jpa: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+
+powsybl-ws:
+  database:
+    vendor: h2:mem
+    query: ;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    hostPort: ":"
+    # name with default value of empty to avoid crashing tests which don't need a new db everytime
+    name: user-identity-oidc-replication_${testDbSuffix:}

@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: user-identity-oidc-replication
+
+powsybl-ws:
+  database:
+    name: useridentity_oidcreplication
