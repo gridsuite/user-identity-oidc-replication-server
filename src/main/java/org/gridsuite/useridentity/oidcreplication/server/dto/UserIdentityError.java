@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * @author Jon Schuhmacher <jon.schuhmacher at rte-france.com>
+ * @author Jon Schuhmacher <jon.harper at rte-france.com>
  */
 @Data
 @AllArgsConstructor

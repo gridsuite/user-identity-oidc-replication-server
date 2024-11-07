@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * @author Jon Schuhmacher <jon.schuhmacher at rte-france.com>
+ * @author Jon Schuhmacher <jon.harper at rte-france.com>
  */
 @Service
 public class UserIdentityDtoService {

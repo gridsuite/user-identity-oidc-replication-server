@@ -12,7 +12,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 /**
- * @author Jon Schuhmacher <jon.schuhmacher at rte-france.com>
+ * @author Jon Schuhmacher <jon.harper at rte-france.com>
  */
 @NoArgsConstructor
 @AllArgsConstructor

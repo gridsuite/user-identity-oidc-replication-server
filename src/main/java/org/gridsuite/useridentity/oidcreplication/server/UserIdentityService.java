@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 /**
- * @author Jon Schuhmacher <jon.schuhmacher at rte-france.com>
+ * @author Jon Schuhmacher <jon.harper at rte-france.com>
  */
 @Service
 public class UserIdentityService {
