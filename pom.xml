@@ -42,7 +42,7 @@
     </developers>
 
     <properties>
-        <gridsuite-dependencies.version>29</gridsuite-dependencies.version>
+        <gridsuite-dependencies.version>36.1.0</gridsuite-dependencies.version>
         <liquibase-hibernate-package>org.gridsuite.useridentity.oidcreplication.server</liquibase-hibernate-package>
     </properties>
 
