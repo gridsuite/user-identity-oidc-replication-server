@@ -12,9 +12,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 @SpringBootTest(webEnvironment = WebEnvironment.NONE, properties = {
     "spring.autoconfigure.exclude=" +
@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 })
 class UserIdentityDtoServiceTest {
 
-    @MockBean
+    @MockitoBean
     UserIdentityRepository excluded;
 
     @Autowired
