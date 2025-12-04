@@ -5,3 +5,6 @@ spring:
 powsybl-ws:
   database:
     name: useridentity_oidcreplication
+  autoconfigure:
+    base-exception-handler:
+      enable: false
