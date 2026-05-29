@@ -6,12 +6,10 @@
  */
 package org.gridsuite.useridentity.oidcreplication.server;
 
-import java.util.Optional;
-
 import org.gridsuite.useridentity.oidcreplication.server.dto.UserIdentity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.util.Optional;
 
 /**
  * @author Jon Schuhmacher <jon.harper at rte-france.com>

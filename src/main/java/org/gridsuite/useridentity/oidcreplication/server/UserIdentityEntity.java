@@ -6,10 +6,9 @@
  */
 package org.gridsuite.useridentity.oidcreplication.server;
 
-import java.util.UUID;
-
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.UUID;
 
 /**
  * @author Jon Schuhmacher <jon.harper at rte-france.com>

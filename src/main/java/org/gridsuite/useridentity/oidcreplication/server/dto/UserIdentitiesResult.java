@@ -6,14 +6,12 @@
  */
 package org.gridsuite.useridentity.oidcreplication.server.dto;
 
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.Map;
 
 /**
  * @author Jon Schuhmacher <jon.harper at rte-france.com>

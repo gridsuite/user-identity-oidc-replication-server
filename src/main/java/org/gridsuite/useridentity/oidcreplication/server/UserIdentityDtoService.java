@@ -6,12 +6,11 @@
  */
 package org.gridsuite.useridentity.oidcreplication.server;
 
-import org.gridsuite.useridentity.oidcreplication.server.dto.UserIdentity;
-import org.springframework.stereotype.Service;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.gridsuite.useridentity.oidcreplication.server.dto.UserIdentity;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Jon Schuhmacher <jon.harper at rte-france.com>
