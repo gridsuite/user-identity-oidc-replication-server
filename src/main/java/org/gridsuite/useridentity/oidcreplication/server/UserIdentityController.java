@@ -6,11 +6,9 @@
  */
 package org.gridsuite.useridentity.oidcreplication.server;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.gridsuite.useridentity.oidcreplication.server.dto.UserIdentitiesResult;
 import org.gridsuite.useridentity.oidcreplication.server.dto.UserIdentity;
 import org.gridsuite.useridentity.oidcreplication.server.dto.UserIdentityError;
@@ -22,11 +20,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author Jon Schuhmacher <jon.harper at rte-france.com>

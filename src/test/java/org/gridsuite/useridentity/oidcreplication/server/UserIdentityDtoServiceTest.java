@@ -1,10 +1,6 @@
 package org.gridsuite.useridentity.oidcreplication.server;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Map;
-import java.util.stream.Stream;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.gridsuite.useridentity.oidcreplication.server.dto.UserIdentity;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -12,9 +8,10 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import java.util.Map;
+import java.util.stream.Stream;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = WebEnvironment.NONE, properties = {
     "spring.autoconfigure.exclude=" +

@@ -6,16 +6,7 @@
  */
 package org.gridsuite.useridentity.oidcreplication.server;
 
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.Map;
-import java.util.UUID;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.gridsuite.useridentity.oidcreplication.server.dto.UserIdentitiesResult;
 import org.gridsuite.useridentity.oidcreplication.server.dto.UserIdentity;
 import org.gridsuite.useridentity.oidcreplication.server.dto.UserIdentityError;
@@ -31,8 +22,14 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Map;
+import java.util.UUID;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
