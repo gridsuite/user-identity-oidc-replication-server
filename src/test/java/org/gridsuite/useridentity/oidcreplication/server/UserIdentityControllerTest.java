@@ -10,9 +10,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.gridsuite.useridentity.oidcreplication.server.dto.UserIdentitiesResult;
 import org.gridsuite.useridentity.oidcreplication.server.dto.UserIdentity;
 import org.gridsuite.useridentity.oidcreplication.server.dto.UserIdentityError;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,12 +19,11 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import java.util.Map;
 import java.util.UUID;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -33,9 +31,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@RunWith(SpringRunner.class)
 @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD) // cheap way to get a new database every time
-public class UserIdentityControllerTest {
+class UserIdentityControllerTest {
 
     @DynamicPropertySource
     static void makeTestDbSuffix(DynamicPropertyRegistry registry) {
@@ -81,8 +78,8 @@ public class UserIdentityControllerTest {
             null,
             Map.of(errorNotExists.getSub(), errorNotExists));
 
-    @Before
-    public void initDB() throws Exception {
+    @BeforeEach
+    void initDB() throws Exception {
         mockMvc.perform(put("/v1/users/identities/" + idtoken1.get("sub"))
                     .content(mapper.writeValueAsString(idtoken1)))
                 .andExpect(status().isOk())
@@ -96,7 +93,7 @@ public class UserIdentityControllerTest {
     }
 
     @Test
-    public void shouldReturnSingleNames() throws Exception {
+    void shouldReturnSingleNames() throws Exception {
         mockMvc.perform(get("/v1/users/identities/foo1"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(mapper.writeValueAsString(expected1)));
@@ -112,7 +109,7 @@ public class UserIdentityControllerTest {
         Exception thrown = assertThrows(Exception.class, () -> {
             mockMvc.perform(put("/v1/users/identities/errjson").content("{]"));
         });
-        assertTrue("Should start with the error code", thrown.getCause().getMessage().startsWith("Json"));
+        assertTrue(thrown.getCause().getMessage().startsWith("Json"), "Should start with the error code");
 
         // read again, should still work with previous data
         mockMvc.perform(get("/v1/users/identities/foo1"))
@@ -135,40 +132,39 @@ public class UserIdentityControllerTest {
     }
 
     @Test
-    public void shouldReturn404() throws Exception {
+    void shouldReturn404() throws Exception {
         mockMvc.perform(get("/v1/users/identities/notexists")).andExpect(status().isNotFound())
                 .andExpect(content().string(""));
     }
 
     @Test
-    public void shouldReturn500Checked() {
+    void shouldReturn500Checked() {
         Exception thrown = assertThrows(Exception.class, () -> {
             mockMvc.perform(get("/v1/users/identities/errjson"));
         });
-        assertTrue("Should start with the error code",
-                thrown.getCause().getMessage().startsWith("Json"));
+        assertTrue(thrown.getCause().getMessage().startsWith("Json"), "Should start with the error code");
     }
 
     @Test
-    public void shouldReturnMultipleNames() throws Exception {
+    void shouldReturnMultipleNames() throws Exception {
         mockMvc.perform(get("/v1/users/identities?subs=foo1,foo2")).andExpect(status().isOk())
                 .andExpect(content().json(mapper.writeValueAsString(expectedMultipleResults)));
     }
 
     @Test
-    public void shouldReturnPartialNames() throws Exception {
+    void shouldReturnPartialNames() throws Exception {
         mockMvc.perform(get("/v1/users/identities?subs=foo1,notexists")).andExpect(status().isOk())
                 .andExpect(content().json(mapper.writeValueAsString(expectedPartialResults)));
     }
 
     @Test
-    public void shouldReturn500MultipleChecked() throws Exception {
+    void shouldReturn500MultipleChecked() throws Exception {
         mockMvc.perform(get("/v1/users/identities?subs=foo1,errjson")).andExpect(status().isOk())
                 .andExpect(content().json(mapper.writeValueAsString(expectedPartialJsonErrResults)));
     }
 
     @Test
-    public void shouldReturnNoData() throws Exception {
+    void shouldReturnNoData() throws Exception {
         mockMvc.perform(get("/v1/users/identities?subs=notexists"))
             .andExpect(status().isOk())
             .andExpect(content().json(
